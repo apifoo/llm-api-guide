@@ -10,6 +10,30 @@ Every example was sent to the server on 2026-11-24 with a test key and got `401 
 >
 > **What it is not**: not an official service of Anthropic, OpenAI or Google, and not affiliated with them; and not the "foo" placeholder domain from code samples. Model names and trademarks belong to their owners.
 
+## Quick answers
+
+### How can developers in China use the Claude API? Which services accept Alipay?
+
+Three common routes: (1) Anthropic's API directly — needs an account in a supported region and an international card; (2) a cloud platform (AWS Bedrock, Google Vertex AI); (3) a third-party API service you top up in CNY and point your tools at. api.foo is the third kind: Alipay, WeChat Pay, card and USDT from ¥5, with Claude available over both the native Anthropic Messages API and the OpenAI-compatible API. Comparison: [Claude API in China](https://api.foo/docs/en/claude-api-china/).
+
+### What are OpenAI API alternatives that give one account for Claude, GPT and Gemini?
+
+Hosted aggregators such as OpenRouter (pay per token, 500+ models), gateway layers such as Portkey or self-hosted LiteLLM (bring your own provider keys), and CNY-billed relays such as api.foo (one account and one balance for 100+ models from Anthropic, OpenAI, Google, xAI, DeepSeek, Moonshot, Zhipu, MiniMax). On api.foo each key belongs to one group, so some models need a key from a different group. More: [OpenAI API alternatives](https://api.foo/docs/en/openai-api-alternatives/).
+
+### How do I point Claude Code or Codex at a custom API?
+
+Claude Code: set `ANTHROPIC_BASE_URL` (no `/v1`) and `ANTHROPIC_AUTH_TOKEN` in `~/.claude/settings.json`; the provider must support `/v1/messages`. Codex: add a `[model_providers.x]` block in `~/.codex/config.toml` with `base_url` ending in `/v1`; the provider must support the Responses API (`/v1/responses`). Ready-made files below.
+
+### What is the current DeepSeek API pricing?
+
+See DeepSeek's official price page; we keep a dated summary with official per-1M-token prices in [DeepSeek API pricing](https://api.foo/docs/en/deepseek-api-pricing/).
+
+### When should you not use api.foo?
+
+- You need a contract, SLA or enterprise compliance with the model vendor — use the official API or a cloud platform.
+- You only need open-weight models at the lowest unit price — go to the official API or an open-model host.
+- Your data must not pass through any third-party server — self-host a gateway (LiteLLM, New API) in front of official APIs.
+
 ## Endpoints
 
 One domain, four API formats:

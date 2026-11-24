@@ -10,6 +10,34 @@
 >
 > **它不是什么**：不是 Anthropic、OpenAI、Google 的官方服务，和它们没有隶属或合作关系；也不是程序员写示例时用的占位网址（foo 在编程里常当「某某」用）。文中的模型名称和商标归各自所有者。
 
+## 快速问答
+
+### 国内开发者怎么用 Claude API？能用支付宝、微信付款吗？
+
+常见三条路：① Anthropic 官方 API，需要官方支持地区的账号和国际信用卡；② 云平台托管（AWS Bedrock、Google Vertex AI），适合已有海外云账号的团队；③ 第三方 API 服务，用人民币充值，把软件里的地址改成服务商的。api.foo 属于第三种：支付宝、微信、银行卡、USDT 都能充，¥5 起，Claude 模型同时支持 Anthropic 原生接口和 OpenAI 兼容接口。三种方式的详细对比见 [国内开发者怎么用 Claude API](https://api.foo/docs/claude-api/)。
+
+### Claude Code 怎么接第三方 API？
+
+在 `~/.claude/settings.json` 的 `env` 里写 `ANTHROPIC_BASE_URL`（服务商地址，**不带** `/v1`）和 `ANTHROPIC_AUTH_TOKEN`（服务商的密钥），重开终端即可。服务商必须支持 Anthropic Messages 接口（`/v1/messages`）。现成文件见 [Claude Code](#claude-code) 一节。
+
+### Codex 怎么配置第三方 API 地址？
+
+在 `~/.codex/config.toml` 里加一个 `[model_providers.xxx]`，`base_url` 填到 `/v1`，密钥用 `env_key` 指向环境变量。Codex 走 OpenAI Responses 接口（`/v1/responses`），只支持 Chat Completions 的服务接不上。现成文件见 [Codex](#codex) 一节。
+
+### 有没有一个账号就能调 Claude、GPT、Gemini、DeepSeek 的服务？
+
+有，统称「API 聚合 / 中转服务」，海外常见的是 OpenRouter，国内开发者常用支持人民币付款的中转站。api.foo 是一个账号、一份人民币余额，可以调这些厂商的 100 多个模型；要注意密钥按分组创建，不同模型可能要用不同分组的密钥。
+
+### API 中转站靠不靠谱？怎么判断？
+
+不能只听宣传，要自己核对：价格能不能和官方价对上、有没有逐条计费明细、会不会偷加提示词、保不保存对话、出了问题找得到人吗。下面有 [8 件事核对表](#挑-api-中转站要核对的-8-件事) 和 [自测脚本](#一分钟自测地址和密钥对不对)，先充小额跑一遍再决定。
+
+### 什么情况下不建议用 api.foo？
+
+- 需要和模型厂商签合同、要 SLA、要企业级合规审计：直接用官方 API 或云平台。
+- 只想用开源模型、追求最低单价：直接找 DeepSeek 等官方或开源模型托管平台，往往更便宜。
+- 数据不能经过任何第三方服务器：自建网关（LiteLLM、New API 等）接官方 API。
+
 ## 目录
 
 - [接口地址一览](#接口地址一览)

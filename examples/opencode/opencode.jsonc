@@ -1,0 +1,26 @@
+// OpenCode 2：放到 ~/.config/opencode/opencode.jsonc
+// 密钥放在环境变量 APIFOO_API_KEY 里
+{
+  "$schema": "https://opencode.ai/config.json",
+  "providers": {
+    "apifoo": {
+      "name": "api.foo",
+      "env": ["APIFOO_API_KEY"],
+      "package": "@opencode/ai/providers/openai-compatible",
+      "settings": { "baseURL": "https://api.foo/v1" },
+      "models": {
+        "gpt-6.2-sol": { "name": "GPT-6.2 Sol" }
+      }
+    },
+    "apifoo-claude": {
+      "name": "api.foo (Claude)",
+      "env": ["APIFOO_API_KEY"],
+      "package": "@opencode/ai/providers/anthropic-compatible",
+      "settings": { "baseURL": "https://api.foo/v1" },
+      "models": {
+        "claude-sonnet-5-5": { "name": "Claude Sonnet 5.5" }
+      }
+    }
+  },
+  "model": "apifoo-claude/claude-sonnet-5-5"
+}

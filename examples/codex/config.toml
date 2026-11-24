@@ -1,0 +1,11 @@
+# 放到 ~/.codex/config.toml（Windows：C:\Users\你的用户名\.codex\config.toml）
+# 密钥放在环境变量 APIFOO_API_KEY 里，不写进这个文件：
+#   macOS / Linux：echo 'export APIFOO_API_KEY="sk-你的密钥"' >> ~/.zshrc && source ~/.zshrc
+#   Windows：setx APIFOO_API_KEY "sk-你的密钥"（然后重开终端）
+model = "gpt-6.2-sol"
+model_provider = "apifoo"
+
+[model_providers.apifoo]
+name = "api.foo"
+base_url = "https://api.foo/v1"
+env_key = "APIFOO_API_KEY"
